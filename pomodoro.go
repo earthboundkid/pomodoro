@@ -2,29 +2,51 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strconv"
 	"time"
 )
 
+func init() {
+	const usage = `Usage of pomodoro:
+
+	pomodoro [duration]
+
+Duration defaults to 15 minutes. Durations may be expressed as integer minutes
+(e.g. "15") or time with units (e.g. "1m30s" or "90s").
+`
+	flag.Usage = func() {
+		fmt.Fprint(os.Stderr, usage)
+	}
+	flag.Parse()
+}
+
 func getWaitDuration() time.Duration {
 	// Default time of 15 minutes
 	const defaultDuration = 15 * time.Minute
 
-	if len(os.Args) == 1 {
+	if len(flag.Args()) > 1 {
+		flag.Usage()
+		os.Exit(2)
+	}
+
+	if flag.Arg(0) == "" {
 		return defaultDuration
 	}
 
-	if n, err := strconv.Atoi(os.Args[1]); err == nil {
+	if n, err := strconv.Atoi(flag.Arg(0)); err == nil {
 		return time.Duration(n) * time.Minute
 	}
 
-	if d, err := time.ParseDuration(os.Args[1]); err == nil {
+	if d, err := time.ParseDuration(flag.Arg(0)); err == nil {
 		return d
 	}
 
-	return defaultDuration
+	flag.Usage()
+	os.Exit(2)
+	panic("missing return at end of function")
 }
 
 func main() {
