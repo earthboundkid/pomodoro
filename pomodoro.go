@@ -9,24 +9,23 @@ import (
 	"time"
 )
 
+const defaultDuration = 25 * time.Minute
+
 func init() {
 	const usage = `Usage of pomodoro:
 
 	pomodoro [duration]
 
-Duration defaults to 15 minutes. Durations may be expressed as integer minutes
+Duration defaults to %d minutes. Durations may be expressed as integer minutes
 (e.g. "15") or time with units (e.g. "1m30s" or "90s").
 `
 	flag.Usage = func() {
-		fmt.Fprint(os.Stderr, usage)
+		fmt.Fprintf(os.Stderr, usage, int(defaultDuration/time.Minute))
 	}
 	flag.Parse()
 }
 
 func getWaitDuration() time.Duration {
-	// Default time of 15 minutes
-	const defaultDuration = 15 * time.Minute
-
 	if len(flag.Args()) > 1 {
 		flag.Usage()
 		os.Exit(2)
