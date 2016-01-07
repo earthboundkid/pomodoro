@@ -39,13 +39,13 @@ func getWaitDuration() time.Duration {
 		return time.Duration(n) * time.Minute
 	}
 
-	if d, err := time.ParseDuration(flag.Arg(0)); err == nil {
-		return d
+	d, err := time.ParseDuration(flag.Arg(0))
+	if err != nil {
+		flag.Usage()
+		os.Exit(2)
 	}
 
-	flag.Usage()
-	os.Exit(2)
-	panic("missing return at end of function")
+	return d
 }
 
 func main() {
