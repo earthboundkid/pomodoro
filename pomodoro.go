@@ -2,6 +2,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -29,31 +30,33 @@ Chimes system bell at the end of the timer, unless -silence is set.
 	flag.Parse()
 }
 
-func getWaitDuration() time.Duration {
+func waitDuration() (time.Duration, error) {
 	if len(flag.Args()) > 1 {
-		flag.Usage()
-		os.Exit(2)
+		return 0, errors.New("Too many args...")
 	}
 
 	if flag.Arg(0) == "" {
-		return defaultDuration
+		return defaultDuration, nil
 	}
 
 	if n, err := strconv.Atoi(flag.Arg(0)); err == nil {
-		return time.Duration(n) * time.Minute
+		return time.Duration(n) * time.Minute, nil
 	}
 
-	d, err := time.ParseDuration(flag.Arg(0))
+	if d, err := time.ParseDuration(flag.Arg(0)); err == nil {
+		return d, nil
+	}
+
+	return 0, errors.New("Couldn't parse duration...")
+}
+
+func main() {
+	wait, err := waitDuration()
 	if err != nil {
 		flag.Usage()
 		os.Exit(2)
 	}
 
-	return d
-}
-
-func main() {
-	wait := getWaitDuration()
 	fmt.Printf("Start timer for %s.\n\n", wait)
 	doneCh := time.After(wait)
 	doneT := time.Now().Add(wait)
