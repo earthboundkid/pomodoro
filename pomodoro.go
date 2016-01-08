@@ -53,7 +53,8 @@ func waitDuration() (time.Duration, error) {
 
 func countdown(target time.Time, formatDuration func(time.Duration) string) {
 	for range time.Tick(100 * time.Millisecond) {
-		fmt.Print(formatDuration(-time.Since(target)))
+		fmt.Fprint(os.Stdout, formatDuration(-time.Since(target)))
+		os.Stdout.Sync()
 	}
 }
 
