@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"time"
@@ -50,6 +51,39 @@ func waitDuration() (time.Duration, error) {
 	return 0, errors.New("Couldn't parse duration...")
 }
 
+func countdown(target time.Time, formatDuration func(time.Duration) string) {
+	for range time.Tick(100 * time.Millisecond) {
+		fmt.Print(formatDuration(-time.Since(target)))
+	}
+}
+
+func formatDays(timeLeft time.Duration) string {
+	days := int(timeLeft.Hours() / 24)
+	hours := int(timeLeft.Hours()) % 24
+	minutes := int(timeLeft.Minutes()) % 60
+	seconds := int(timeLeft.Seconds()) % 60
+	return fmt.Sprintf("Countdown: %d:%02d:%02d:%02d \r",
+		days, hours, minutes, seconds)
+}
+
+func formatHours(timeLeft time.Duration) string {
+	hours := int(timeLeft.Hours())
+	minutes := int(timeLeft.Minutes()) % 60
+	seconds := int(timeLeft.Seconds()) % 60
+	return fmt.Sprintf("Countdown: %d:%02d:%02d\r",
+		hours, minutes, seconds)
+}
+
+func formatMinutes(timeLeft time.Duration) string {
+	minutes := int(timeLeft.Minutes())
+	seconds := int(timeLeft.Seconds()) % 60
+	return fmt.Sprintf("Countdown: %d:%02d\r", minutes, seconds)
+}
+
+func formatSeconds(timeLeft time.Duration) string {
+	return fmt.Sprintf("Countdown: %02.1f \r", math.Abs(timeLeft.Seconds()))
+}
+
 func main() {
 	wait, err := waitDuration()
 	if err != nil {
@@ -61,13 +95,17 @@ func main() {
 	doneCh := time.After(wait)
 	doneT := time.Now().Add(wait)
 
-	go func() {
-		for range time.Tick(200 * time.Millisecond) {
-			duration := -time.Since(doneT)
-			fmt.Printf("Countdown: %02d:%02d    \r",
-				int(duration.Minutes()), int(duration.Seconds())%60)
-		}
-	}()
+	switch {
+	case wait >= 24*time.Hour:
+		go countdown(doneT, formatDays)
+	case wait >= time.Hour:
+		go countdown(doneT, formatHours)
+	case wait >= time.Minute:
+		go countdown(doneT, formatMinutes)
+	default:
+		go countdown(doneT, formatSeconds)
+	}
+
 	<-doneCh
 
 	if !*silence {
