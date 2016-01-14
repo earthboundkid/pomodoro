@@ -53,7 +53,12 @@ func waitDuration() (time.Duration, error) {
 
 func countdown(target time.Time, formatDuration func(time.Duration) string) {
 	for range time.Tick(100 * time.Millisecond) {
-		fmt.Fprint(os.Stdout, formatDuration(-time.Since(target)))
+		timeLeft := -time.Since(target)
+		if timeLeft < 0 {
+			fmt.Print(formatDuration(0))
+			return
+		}
+		fmt.Fprint(os.Stdout, formatDuration(timeLeft))
 		os.Stdout.Sync()
 	}
 }
@@ -91,23 +96,20 @@ func main() {
 		flag.Usage()
 		os.Exit(2)
 	}
+	doneT := time.Now().Add(wait)
 
 	fmt.Printf("Start timer for %s.\n\n", wait)
-	doneCh := time.After(wait)
-	doneT := time.Now().Add(wait)
 
 	switch {
 	case wait >= 24*time.Hour:
-		go countdown(doneT, formatDays)
+		countdown(doneT, formatDays)
 	case wait >= time.Hour:
-		go countdown(doneT, formatHours)
+		countdown(doneT, formatHours)
 	case wait >= time.Minute:
-		go countdown(doneT, formatMinutes)
+		countdown(doneT, formatMinutes)
 	default:
-		go countdown(doneT, formatSeconds)
+		countdown(doneT, formatSeconds)
 	}
-
-	<-doneCh
 
 	if !*silence {
 		fmt.Println("\a") // \a is the bell literal.
