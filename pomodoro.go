@@ -76,14 +76,14 @@ func formatHours(timeLeft time.Duration) string {
 	hours := int(timeLeft.Hours())
 	minutes := int(timeLeft.Minutes()) % 60
 	seconds := int(timeLeft.Seconds()) % 60
-	return fmt.Sprintf("Countdown: %d:%02d:%02d\r",
+	return fmt.Sprintf("Countdown: %d:%02d:%02d \r",
 		hours, minutes, seconds)
 }
 
 func formatMinutes(timeLeft time.Duration) string {
 	minutes := int(timeLeft.Minutes())
 	seconds := int(timeLeft.Seconds()) % 60
-	return fmt.Sprintf("Countdown: %d:%02d\r", minutes, seconds)
+	return fmt.Sprintf("Countdown: %d:%02d \r", minutes, seconds)
 }
 
 func formatSeconds(timeLeft time.Duration) string {
