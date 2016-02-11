@@ -2,7 +2,13 @@
 Command line [pomodoro timer](https://en.wikipedia.org/wiki/Pomodoro_Technique), implemented in Go
 
 ## Installation
-First install [Go](http://golang.org) and set your `GOPATH` environmental variable to the directory you would like the project saved in. Then run `go get github.com/carlmjohnson/pomodoro`. The binary will be installed in `$GOPATH/bin`. If you don't want to keep the source, you can instead run `GOPATH=/tmp/pmd go get github.com/carlmjohnson/pomodoro && cp /tmp/pmd/bin/pomodoro .` to install the binary to your current working directory.
+First install [Go](http://golang.org).
+
+If you just want to install the binary to your current directory and don't care about the source code, run
+
+```bash
+GOBIN=. GOPATH=/tmp/gobuild go get github.com/carlmjohnson/pomodoro
+```
 
 ## Usage
 Usage of pomodoro:
