@@ -17,22 +17,22 @@ var silence bool
 var notify *notificator.Notificator
 
 func init() {
-  const (
-    defaultDuration = "25m"
-    durationUsage = "Duration, e.g. 1m30s or 90s"
-    silenceUsage = "Suppresses the notification after the timer ends"
-  )
-  
-  flag.StringVar(&duration, "duration", defaultDuration, durationUsage)
-  flag.StringVar(&duration, "d", defaultDuration, durationUsage+" (shorthand)")
-  flag.BoolVar(&silence, "silence", false, silenceUsage)
-  flag.BoolVar(&silence, "s", false, silenceUsage+" (shorthand)")
+	const (
+		defaultDuration = "25m"
+		durationUsage   = "Duration, e.g. 1m30s or 90s"
+		silenceUsage    = "Suppresses the notification after the timer ends"
+	)
+
+	flag.StringVar(&duration, "duration", defaultDuration, durationUsage)
+	flag.StringVar(&duration, "d", defaultDuration, durationUsage+" (shorthand)")
+	flag.BoolVar(&silence, "silence", false, silenceUsage)
+	flag.BoolVar(&silence, "s", false, silenceUsage+" (shorthand)")
 	flag.Parse()
-  
-  notify = notificator.New(notificator.Options{
-	 DefaultIcon: "icon/default.png",
-	 AppName:     "Pomodoro",
-  })
+
+	notify = notificator.New(notificator.Options{
+		DefaultIcon: "icon/default.png",
+		AppName:     "Pomodoro",
+	})
 }
 
 func waitDuration() (time.Duration, error) {
