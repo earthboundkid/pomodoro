@@ -7,7 +7,7 @@ First install [Go](http://golang.org).
 If you just want to install the binary to your current directory and don't care about the source code, run
 
 ```bash
-GOBIN=. GOPATH=/tmp/gobuild go get github.com/carlmjohnson/pomodoro
+GOBIN=$(pwd) GOPATH=/tmp/gobuild go get github.com/carlmjohnson/pomodoro
 ```
 
 ## Usage
