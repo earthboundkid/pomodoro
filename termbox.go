@@ -75,7 +75,7 @@ func render(start, finish time.Time) bool {
 
 	nowStr := now.Format(timeFmt)
 	display.Point{
-		centerX - (len(nowStr) / 2), 0,
+		centerX - (len("Now") / 2), 0,
 		termbox.ColorBlue, termbox.ColorDefault,
 	}.Str("Now")
 	display.Point{
@@ -85,7 +85,7 @@ func render(start, finish time.Time) bool {
 
 	finishStr := finish.Format(timeFmt)
 	display.Point{
-		screenW - len(finishStr), 0,
+		screenW - len("Finish"), 0,
 		termbox.ColorBlue, termbox.ColorDefault,
 	}.Str("Finish")
 	display.Point{
