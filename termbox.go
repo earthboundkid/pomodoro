@@ -19,7 +19,7 @@ func fullscreenCountdown(start, finish time.Time) {
 	defer termbox.Close()
 
 	// Leaks a goroutine
-	ticker := time.Tick(100 * time.Millisecond)
+	ticker := time.Tick(40 * time.Millisecond)
 	quit := make(chan struct{})
 	// Leaks if not quit
 	go func() {
