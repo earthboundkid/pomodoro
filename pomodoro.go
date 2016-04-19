@@ -35,7 +35,7 @@ func main() {
 	if *simple {
 		simpleCountdown(finish)
 	} else {
-		fullscreenCountdown()
+		fullscreenCountdown(start, finish)
 	}
 
 	if !*silence {
