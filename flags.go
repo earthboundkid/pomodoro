@@ -33,19 +33,21 @@ Chimes system bell at the end of the timer, unless -silence is set.
 }
 
 func waitDuration() (time.Duration, error) {
-	if len(flag.Args()) > 1 {
+	if flag.NArg() > 1 {
 		return 0, errors.New("Too many args...")
 	}
 
-	if flag.Arg(0) == "" {
+	arg := flag.Arg(0)
+
+	if arg == "" {
 		return defaultDuration, nil
 	}
 
-	if n, err := strconv.Atoi(flag.Arg(0)); err == nil {
+	if n, err := strconv.Atoi(arg); err == nil {
 		return time.Duration(n) * time.Minute, nil
 	}
 
-	if d, err := time.ParseDuration(flag.Arg(0)); err == nil {
+	if d, err := time.ParseDuration(arg); err == nil {
 		return d, nil
 	}
 
