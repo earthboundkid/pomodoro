@@ -10,7 +10,7 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-func fullscreenCountdown(start, finish time.Time) {
+func fullscreenCountdown(start, finish time.Time, formatter func(time.Duration) string) {
 	err := termbox.Init()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Couldn't open display:", err)
@@ -37,7 +37,7 @@ func fullscreenCountdown(start, finish time.Time) {
 		}
 	}()
 
-	for render(start, finish) {
+	for render(start, finish, formatter) {
 		select {
 		case <-ticker:
 		case <-quit:
@@ -49,7 +49,7 @@ func fullscreenCountdown(start, finish time.Time) {
 
 }
 
-func render(start, finish time.Time) bool {
+func render(start, finish time.Time, formatter func(time.Duration) string) bool {
 	now := time.Now()
 	remaining := -now.Sub(finish)
 	if remaining < 0 {

@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-var formatter = formatSeconds
-
 func formatDays(timeLeft time.Duration) string {
 	days := int(timeLeft.Hours() / 24)
 	hours := int(timeLeft.Hours()) % 24

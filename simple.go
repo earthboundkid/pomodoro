@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func simpleCountdown(target time.Time) {
+func simpleCountdown(target time.Time, formatter func(time.Duration) string) {
 	for range time.Tick(100 * time.Millisecond) {
 		timeLeft := -time.Since(target)
 		if timeLeft < 0 {

@@ -19,6 +19,7 @@ func main() {
 
 	finish := start.Add(wait)
 
+	formatter := formatSeconds
 	switch {
 	case wait >= 24*time.Hour:
 		formatter = formatDays
@@ -26,16 +27,14 @@ func main() {
 		formatter = formatHours
 	case wait >= time.Minute:
 		formatter = formatMinutes
-	default:
-		formatter = formatSeconds
 	}
 
 	fmt.Printf("Start timer for %s.\n\n", wait)
 
 	if *simple {
-		simpleCountdown(finish)
+		simpleCountdown(finish, formatter)
 	} else {
-		fullscreenCountdown(start, finish)
+		fullscreenCountdown(start, finish, formatter)
 	}
 
 	if !*silence {
