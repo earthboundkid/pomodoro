@@ -11,13 +11,12 @@ import (
 func main() {
 	start := time.Now()
 
-	wait, err := waitDuration()
+	finish, err := waitDuration(start)
 	if err != nil {
 		flag.Usage()
 		os.Exit(2)
 	}
-
-	finish := start.Add(wait)
+	wait := finish.Sub(start)
 
 	formatter := formatSeconds
 	switch {
