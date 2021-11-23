@@ -1,3 +1,5 @@
+github.com/dbatbold/beep v1.0.1 h1:hcCPZenFTLl0C9i+irSVLy6sCtmBFX2nfJxAqHlKGLU=
+github.com/dbatbold/beep v1.0.1/go.mod h1:nCYglCMeZFCH+ufNXeSjJ5JXN69g8gTPKmCLFBt5zL4=
 github.com/mattn/go-runewidth v0.0.9 h1:Lm995f3rfxdpd6TSmuVCHVb/QhupuXlYr8sCI/QdE+0=
 github.com/mattn/go-runewidth v0.0.9/go.mod h1:H031xJmbD/WCDINGzjvQ9THkh0rPKHF+m2gUSrubnMI=
 github.com/nsf/termbox-go v1.1.0 h1:R+GIXVMaDxDQ2VHem5vO5h0mI8ZxLECTUNw1ZzXODzI=

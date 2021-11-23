@@ -19,7 +19,7 @@ Duration defaults to 25 minutes. Finish may be a duration (e.g. "1h2m3s")
 or a target time (e.g. "1:00pm" or "13:02:03"). Durations may be expressed
 as integer minutes (e.g. "15") or time with units (e.g. "1m30s" or "90s").
 
-Chimes system bell at the end of the timer, unless -silence is set.
+Play a bell sound at the end of the timer, unless -silence is set.
 
 ## Screenshots
 ```bash
@@ -36,7 +36,7 @@ Usage of pomodoro:
 Duration defaults to 25 minutes. Durations may be expressed as integer minutes
 (e.g. "15") or time with units (e.g. "1m30s" or "90s").
 
-Chimes system bell at the end of the timer, unless -silence is set.
+Play a bell sound at the end of the timer, unless -silence is set.
   -silence
         Don't ring bell after countdown
   -simple
