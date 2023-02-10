@@ -37,7 +37,7 @@ func main() {
 	}
 
 	if !*silence {
-		fmt.Println("\a") // \a is the bell literal.
+		ringMyBell()
 	} else {
 		fmt.Println()
 	}
