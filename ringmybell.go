@@ -5,21 +5,24 @@ import (
 	"github.com/hajimehoshi/oto/v2"
 
 	"log"
-	"os"
 	"time"
+
+	"embed"
 )
 
 const bell = "assets/ring_my_bell.mp3"
 
+//go:embed assets/ring_my_bell.mp3
+var f embed.FS
+
 func ringMyBell() {
 
-	f, err := os.Open(bell)
+	data, err := f.Open(bell)
 	if err != nil {
 		log.Fatalf("could not play the file %s: %s", bell, err)
 	}
-	defer f.Close()
 
-	d, err := mp3.NewDecoder(f)
+	d, err := mp3.NewDecoder(data)
 	if err != nil {
 		log.Fatalf("could not get mp3 decoder: %s", err)
 	}
