@@ -156,7 +156,7 @@ func (p Point) BigStr(s string) {
 
 func (p Point) ProgressBar(length, cur, total int) {
 	divider := (length * cur) / total
-	for x := 0; x < length; x++ {
+	for x := range length {
 		ch := ' '
 		q := p
 		q.X += x

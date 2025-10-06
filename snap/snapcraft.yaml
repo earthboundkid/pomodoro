@@ -1,6 +1,6 @@
 name: pomodoro
 version: git
-summary:  Command line pomodoro timer
+summary: Command line pomodoro timer
 description: |
   Command line pomodoro timer, implemented in Go.
 
@@ -15,4 +15,4 @@ parts:
   pomodoro:
     source: .
     plugin: go
-    go-importpath: github.com/carlmjohnson/pomodoro
+    go-importpath: github.com/earthboundkid/pomodoro
